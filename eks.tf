@@ -54,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
 
 #createing vpc
 resource "aws_vpc" "eks-vpc" {
-  cidr_block = "192.168.0.0/20"
+  cidr_block = "10.0.0.0/16"
   tags = {
     name = "eks-vpc"
   }
@@ -69,18 +69,18 @@ resource "aws_internet_gateway" "eks-igw" {
 resource "aws_subnet" "private-1a"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1a"
-    cidr_block = ["192.168.0.0/20"]
+    cidr_block = "10.0.0.0/19"
 }
 resource "aws_subnet" "private-1b"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1b"
-    cidr_block = ["192.168.16.0/20"]
+    cidr_block = "10.0.32.0/19"
 }
 resource "aws_subnet" "public-1c"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1c"
     map_public_ip_on_launch = true
-    cidr_block = ["192.168.0.0/21"]
+    cidr_block = "10.0.64.0/19"
 }
 
 #creating route table
