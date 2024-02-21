@@ -152,7 +152,7 @@ resource "aws_eks_node_group" "prathamesh-node" {
     aws_subnet.private-1b.id,
     aws_subnet.public-1c.id
   ]
-  capacity_type = "ON-DEMAND"
+  capacity_type = "ON_DEMAND"
   instance_types = ["t3.small"]
   scaling_config {
     desired_size = 2
