@@ -1,8 +1,8 @@
 provider "aws" {
   region = "eu-north-1"
 }
-resource "aws_iam_role" "roleforcluster" {
-  name = "eks-cluster-role-1" 
+resource "aws_iam_role" "rolecluster" {
+  name = "eks-role" 
   assume_role_policy = <<POLICY
 {
     "Version": "2012-10-17",
