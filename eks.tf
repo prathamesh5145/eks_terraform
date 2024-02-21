@@ -136,7 +136,7 @@ resource "aws_eks_cluster" "cluster" {
     subnet_ids = [
         aws_subnet.private-1a.id,
         aws_subnet.private-1b.id,
-        aws_subnet.private-1c.id
+        aws_subnet.public-1c.id
     ]
   }
   depends_on = [ aws_iam_role_policy_attachment.cluster_policy ]
