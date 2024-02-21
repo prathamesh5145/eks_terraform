@@ -139,7 +139,7 @@ resource "aws_eks_cluster" "cluster" {
         aws_subnet.public-1c.id
     ]
   }
-  depends_on = [ aws_iam_role_policy_attachment.cluster_policy ]
+  depends_on = [ aws_iam_role_policy_attachment.cluster-policy ]
 }
 
 #creating nodes
