@@ -150,7 +150,7 @@ resource "aws_eks_node_group" "prathamesh-node" {
   subnet_ids = [
     aws_subnet.private-1a.id,
     aws_subnet.private-1b.id,
-    aws_subnet.private-1c.id
+    aws_subnet.public-1c.id
   ]
   capacity_type = "ON-DEMAND"
   instance_types = ["t3.small"]
