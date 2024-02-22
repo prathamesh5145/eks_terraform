@@ -69,20 +69,22 @@ resource "aws_internet_gateway" "eks-igw" {
 }
 
 #creating subnets
-resource "aws_subnet" "private-1a"{
+resource "aws_subnet" "public-1a"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "us-east-1a"
+    map_public_ip_on_launch = true
     cidr_block = "10.0.0.0/19"
     tags = {
-      Name = "private-1a"
+      Name = "public-1a"
     }
 }
-resource "aws_subnet" "private-1b"{
+resource "aws_subnet" "public-1b"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "us-east-1b"
+    map_public_ip_on_launch = true
     cidr_block = "10.0.32.0/19"
     tags = {
-      Name = "private-1b"
+      Name = "puclic-1b"
     }
 }
 resource "aws_subnet" "public-1c"{
@@ -108,12 +110,12 @@ resource "aws_route" "eks-routetable-public" {
 }
 
 #subnet association in RT
-resource "aws_route_table_association" "private-1a" {
-  subnet_id = aws_subnet.private-1a.id
+resource "aws_route_table_association" "public-1a" {
+  subnet_id = aws_subnet.public-1a.id
   route_table_id = aws_vpc.eks-vpc.default_route_table_id
 }
-resource "aws_route_table_association" "private-1b" {
-  subnet_id = aws_subnet.private-1b.id
+resource "aws_route_table_association" "public-1b" {
+  subnet_id = aws_subnet.public-1b.id
   route_table_id = aws_vpc.eks-vpc.default_route_table_id
 }
 resource "aws_route_table_association" "public-1c" {
@@ -162,8 +164,8 @@ resource "aws_eks_cluster" "cluster" {
   role_arn = aws_iam_role.rolecluster.arn
   vpc_config {
     subnet_ids = [
-        aws_subnet.private-1a.id,
-        aws_subnet.private-1b.id,
+        aws_subnet.public-1a.id,
+        aws_subnet.public-1b.id,
         aws_subnet.public-1c.id
     ]
   }
@@ -176,8 +178,8 @@ resource "aws_eks_node_group" "prathamesh-node" {
   node_group_name = "prathamesh"
   node_role_arn = aws_iam_role.noderole.arn
   subnet_ids = [
-    aws_subnet.private-1a.id,
-    aws_subnet.private-1b.id,
+    aws_subnet.public-1a.id,
+    aws_subnet.public-1b.id,
     aws_subnet.public-1c.id
   ]
   capacity_type = "ON_DEMAND"
