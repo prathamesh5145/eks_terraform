@@ -56,13 +56,16 @@ resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOn
 resource "aws_vpc" "eks-vpc" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    name = "eks-vpc"
+    Name = "eks-vpc"
   }
 }
 
 #creating internet gatway
 resource "aws_internet_gateway" "eks-igw" {
   vpc_id = aws_vpc.eks-vpc.id
+  tags = {
+    Name = "eks-igw"
+  }
 }
 
 #creating subnets
@@ -71,7 +74,7 @@ resource "aws_subnet" "private-1a"{
     availability_zone = "eu-north-1a"
     cidr_block = "10.0.0.0/19"
     tags = {
-      "Name" = "private-1a"
+      Name = "private-1a"
     }
 }
 resource "aws_subnet" "private-1b"{
@@ -113,7 +116,7 @@ resource "aws_route_table_association" "private-1b" {
   subnet_id = aws_subnet.private-1b.id
   route_table_id = aws_route.eks-routetable-private.id
 }
-resource "aws_route_table_association" "private-1c" {
+resource "aws_route_table_association" "public-1c" {
   subnet_id = aws_subnet.public-1c.id
   route_table_id = aws_route.eks-routetable-public.id
 }
