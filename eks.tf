@@ -110,15 +110,15 @@ resource "aws_route" "eks-routetable-public" {
 #subnet association in RT
 resource "aws_route_table_association" "private-1a" {
   subnet_id = aws_subnet.private-1a.id
-  route_table_id = aws_route.eks-routetable-private.id
+  route_table_id = aws_vpc.eks-vpc.default_route_table_id
 }
 resource "aws_route_table_association" "private-1b" {
   subnet_id = aws_subnet.private-1b.id
-  route_table_id = aws_route.eks-routetable-private.id
+  route_table_id = aws_vpc.eks-vpc.default_route_table_id
 }
 resource "aws_route_table_association" "public-1c" {
   subnet_id = aws_subnet.public-1c.id
-  route_table_id = aws_route.eks-routetable-public.id
+  route_table_id = aws_vpc.eks-vpc.default_route_table_id
 }
 
 #creating NAT Gtw
