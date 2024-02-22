@@ -70,17 +70,26 @@ resource "aws_subnet" "private-1a"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1a"
     cidr_block = "10.0.0.0/19"
+    tags = {
+      "Name" = "private-1a"
+    }
 }
 resource "aws_subnet" "private-1b"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1b"
     cidr_block = "10.0.32.0/19"
+    tags = {
+      Name = "private-1b"
+    }
 }
 resource "aws_subnet" "public-1c"{
     vpc_id = aws_vpc.eks-vpc.id
     availability_zone = "eu-north-1c"
     map_public_ip_on_launch = true
     cidr_block = "10.0.64.0/19"
+    tags = {
+      Name = "public-1c"
+    }
 }
 
 #creating route table
@@ -107,6 +116,22 @@ resource "aws_route_table_association" "private-1b" {
 resource "aws_route_table_association" "private-1c" {
   subnet_id = aws_subnet.public-1c.id
   route_table_id = aws_route.eks-routetable-public.id
+}
+
+#creating NAT Gtw
+resource "aws_eip" "nat" {
+  vpc = true
+  tags = {
+    Name = "nat"
+  }
+}
+resource "aws_nat_gateway" "eks-nat" {
+  allocation_id = aws_eip.nat.id
+  subnet_id = aws_subnet.public-1c.id
+  tags = {
+    Name = "eks-nat"
+  }
+  depends_on = [ aws_internet_gateway.eks-igw ]
 }
 
 #creating security group
