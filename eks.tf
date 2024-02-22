@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
 #creating roles
@@ -71,7 +71,7 @@ resource "aws_internet_gateway" "eks-igw" {
 #creating subnets
 resource "aws_subnet" "public-1a"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "us-east-1a"
+    availability_zone = "ap-south-1a"
     map_public_ip_on_launch = true
     cidr_block = "10.0.0.0/19"
     tags = {
@@ -80,7 +80,7 @@ resource "aws_subnet" "public-1a"{
 }
 resource "aws_subnet" "public-1b"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "us-east-1b"
+    availability_zone = "ap-south-1b"
     map_public_ip_on_launch = true
     cidr_block = "10.0.32.0/19"
     tags = {
@@ -89,7 +89,7 @@ resource "aws_subnet" "public-1b"{
 }
 resource "aws_subnet" "public-1c"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "us-east-1c"
+    availability_zone = "ap-south-1c"
     map_public_ip_on_launch = true
     cidr_block = "10.0.64.0/19"
     tags = {
