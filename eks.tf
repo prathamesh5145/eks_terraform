@@ -71,7 +71,7 @@ resource "aws_internet_gateway" "eks-igw" {
 #creating subnets
 resource "aws_subnet" "private-1a"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "eu-north-1a"
+    availability_zone = "us-east-1a"
     cidr_block = "10.0.0.0/19"
     tags = {
       Name = "private-1a"
@@ -79,7 +79,7 @@ resource "aws_subnet" "private-1a"{
 }
 resource "aws_subnet" "private-1b"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "eu-north-1b"
+    availability_zone = "us-east-1b"
     cidr_block = "10.0.32.0/19"
     tags = {
       Name = "private-1b"
@@ -87,7 +87,7 @@ resource "aws_subnet" "private-1b"{
 }
 resource "aws_subnet" "public-1c"{
     vpc_id = aws_vpc.eks-vpc.id
-    availability_zone = "eu-north-1c"
+    availability_zone = "us-east-1c"
     map_public_ip_on_launch = true
     cidr_block = "10.0.64.0/19"
     tags = {
