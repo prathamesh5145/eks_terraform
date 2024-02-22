@@ -2,7 +2,7 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-#creating role
+#creating roles
 resource "aws_iam_role" "rolecluster" {
   name = "eks-role" 
   assume_role_policy = <<POLICY
@@ -34,7 +34,7 @@ resource "aws_iam_role" "noderole" {
   })
 }
 
-#attaching policy to role
+#attaching policy to roles
 resource "aws_iam_role_policy_attachment" "cluster-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role = aws_iam_role.rolecluster.name
@@ -120,7 +120,7 @@ resource "aws_route_table_association" "private-1c" {
 
 #creating NAT Gtw
 resource "aws_eip" "nat" {
-  vpc = true
+  domain = "vpc"
   tags = {
     Name = "nat"
   }
